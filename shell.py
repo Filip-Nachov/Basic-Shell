@@ -11,7 +11,10 @@ class Shell_commands:
         print(" ".join(args))
     def pwd_cmd(self, directory):
         files = os.listdir(directory)
-        print(files)
+        for i in files:
+            num = 1
+            print(f"file {num}: {i}")
+            num += 1
 
 class Shell:
     def __init__(self):
