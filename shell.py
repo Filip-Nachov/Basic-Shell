@@ -15,6 +15,8 @@ class Shell_commands:
             num = 1
             print(f"file {num}: {i}")
             num += 1
+    def cd_cmd(self, path):
+        os.chdir(path)
 
 class Shell:
     def __init__(self):
@@ -24,6 +26,7 @@ class Shell:
         self.commands["echo"] = shell_commands.echo_cmd
         self.commands["print"] = shell_commands.print_cmd
         self.commands["ls"] = shell_commands.pwd_cmd
+        self.commands["cd"] = shell_commands.cd_cmd 
 
     def run(self):
         while True:
@@ -40,8 +43,11 @@ class Shell:
             elif inputing == "pwd":
                 path = os.getcwd()
                 self.commands["ls"](self, path)
-
-
+            elif inputing.startswith("cd"):
+                loi = inputing.split()
+                path = loi[1]
+                self.commands["cd"](self, path)
+              
 if __name__ == "__main__":
     shell = Shell()
     shell.run()
