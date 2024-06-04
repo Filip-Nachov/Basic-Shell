@@ -9,6 +9,9 @@ class Shell_commands:
         print(" ".join(args))
     def print_cmd(self, args):
         print(" ".join(args))
+    def pwd_cmd(self, directory):
+        files = os.listdir(directory)
+        print(files)
 
 class Shell:
     def __init__(self):
@@ -17,6 +20,7 @@ class Shell:
         self.commands["exit"] = shell_commands.exit_cmd
         self.commands["echo"] = shell_commands.echo_cmd
         self.commands["print"] = shell_commands.print_cmd
+        self.commands["ls"] = shell_commands.pwd_cmd
 
     def run(self):
         while True:
@@ -30,6 +34,9 @@ class Shell:
             elif inputing.startswith("print"):
                 args = inputing.split()[1:]
                 self.commands["print"](self, args)
+            elif inputing == "pwd":
+                path = os.getcwd()
+                self.commands["ls"](self, path)
 
 
 if __name__ == "__main__":
