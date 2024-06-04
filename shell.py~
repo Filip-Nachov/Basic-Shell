@@ -46,11 +46,8 @@ class Shell:
             elif inputing.startswith("cd"):
                 loi = inputing.split()
                 path = loi[1]
-                try:
-                    self.commands["cd"](self, path)
-                except FileNotFound:
-                    print("That path does not exist")
-
+                self.commands["cd"](self, path)
+              
 if __name__ == "__main__":
     shell = Shell()
     shell.run()

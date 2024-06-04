@@ -46,7 +46,12 @@ class Shell:
             elif inputing.startswith("cd"):
                 loi = inputing.split()
                 path = loi[1]
-                self.commands["cd"](self, path)
+                try:
+                    self.commands["cd"](self, path)
+                except FileNotFoundError:
+                    print(f"Error: Directory '{path}' not found")
+                except PermissionError:
+                    print(f"Error: Permission denied to access directory '{path}'")
               
 if __name__ == "__main__":
     shell = Shell()
