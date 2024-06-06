@@ -1,6 +1,7 @@
 import os
 import subprocess
 
+# all shell commands
 class Shell_commands:
     def exit_cmd(self):
         print("Ending shell session")
@@ -34,26 +35,27 @@ class Shell_commands:
         print("ls: shows all the items in the current directory")
         print("echo or print <word/sentence>: prints out the word or sentences said")
 
-
+# the shell  working system
 class Shell:
     def __init__(self):
-        self.commands = {}
-        shell_commands = Shell_commands
-        self.commands["exit"] = shell_commands.exit_cmd
-        self.commands["echo"] = shell_commands.echo_cmd
-        self.commands["print"] = shell_commands.print_cmd
-        self.commands["ls"] = shell_commands.ls_cmd
-        self.commands["pwd"] = shell_commands.pwd_cmd
-        self.commands["cd"] = shell_commands.cd_cmd 
-        self.commands["help"] = shell_commands.help_cmd
+        # defining all the commands from the Shell_commands class
+        self.commands = {} # making a hashmap
+        shell_commands = Shell_commands # connecting the class into a variable
+        self.commands["exit"] = shell_commands.exit_cmd # exit command
+        self.commands["echo"] = shell_commands.echo_cmd # echo command
+        self.commands["print"] = shell_commands.print_cmd # print command
+        self.commands["ls"] = shell_commands.ls_cmd # ls command
+        self.commands["pwd"] = shell_commands.pwd_cmd # pwd commnad
+        self.commands["cd"] = shell_commands.cd_cmd # cd command
+        self.commands["help"] = shell_commands.help_cmd # help command
 
     def run(self):
         print('For all available commands type "help"')
-        while True:
-            path = os.getcwd()
-            inputing = input(f"$ {path}: ")
-            if inputing == "exit":
-                self.commands["exit"](self)
+        while True: # making a while loop for the input
+            path = os.getcwd() # taking path
+            inputing = input(f"$ {path}: ") # taking input
+            if inputing == "exit": # the if system to run the wanted command
+                self.commands["exit"](self) 
             elif inputing.startswith("echo"):
                 args = inputing.split()[1:]
                 self.commands["echo"](self, args)
@@ -78,7 +80,7 @@ class Shell:
             elif inputing == "help":
                 self.commands["help"](self)
               
-if __name__ == "__main__":
+if __name__ == "__main__": # running the shell 
     shell = Shell()
     shell.run()
 
