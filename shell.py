@@ -13,6 +13,9 @@ class Shell_commands:
     def print_cmd(self, args):
         print(" ".join(args))
 
+    def mkdir_cmd(self, name):
+        os.makedirs(name)
+
 
     def ls_cmd(self, directory):
         files = os.listdir(directory)
@@ -34,6 +37,7 @@ class Shell_commands:
         print("cd: changes the current directory")
         print("ls: shows all the items in the current directory")
         print("echo or print <word/sentence>: prints out the word or sentences said")
+        print("mkdir <name>: creates a directory with that name")
 
 # the shell  working system
 class Shell:
@@ -48,6 +52,7 @@ class Shell:
         self.commands["pwd"] = shell_commands.pwd_cmd # pwd commnad
         self.commands["cd"] = shell_commands.cd_cmd # cd command
         self.commands["help"] = shell_commands.help_cmd # help command
+        self.commands["mkdir"] = shell_commands.mkdir_cmd # mkdir command
 
     def run(self):
         print('For all available commands type "help"')
@@ -79,6 +84,10 @@ class Shell:
                     print(f"Error: Permission denied to access directory '{path}'")
             elif inputing == "help":
                 self.commands["help"](self)
+            elif inputing.startswith("mkdir"):
+                loi = inputing.split()[1:]
+                name = loi[0]
+                self.commands["mkdir"](self, name)
               
 if __name__ == "__main__": # running the shell 
     shell = Shell()
