@@ -31,6 +31,9 @@ class Shell_commands:
     def cd_cmd(self, path):
         os.chdir(path)
 
+    def rmdir_cmd(self, name):
+        os.rmdir(name)
+
     def help_cmd(self):
         print("exit: exits the shell")
         print("pwd: shows your current path")
@@ -38,6 +41,7 @@ class Shell_commands:
         print("ls: shows all the items in the current directory")
         print("echo or print <word/sentence>: prints out the word or sentences said")
         print("mkdir <name>: creates a directory with that name")
+        print("rmdir <name>: deletes the directory registered under that name")
 
 # the shell  working system
 class Shell:
@@ -53,6 +57,7 @@ class Shell:
         self.commands["cd"] = shell_commands.cd_cmd # cd command
         self.commands["help"] = shell_commands.help_cmd # help command
         self.commands["mkdir"] = shell_commands.mkdir_cmd # mkdir command
+        self.commands["rmdir"] = shell_commands.rmdir_cmd # rmdir command
 
     def run(self):
         print('For all available commands type "help"')
@@ -88,7 +93,14 @@ class Shell:
                 loi = inputing.split()[1:]
                 name = loi[0]
                 self.commands["mkdir"](self, name)
-              
+            elif inputing.startswith("rmdir"):
+                loi = inputing.split()[1:]
+                name = loi[0]
+                try:
+                    self.commands["rmdir"](self, name) 
+                except FileNotFoundError:
+                    print("That directory does not exist")
+                    
 if __name__ == "__main__": # running the shell 
     shell = Shell()
     shell.run()
