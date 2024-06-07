@@ -11,3 +11,5 @@ this is a basic shell made in Python. Its commands mostly come from the already-
 - `help`: prints all the commands 
 - `mkdir [directory name]`: creates a directory by the specified name
 - `rmdir [directory name]`: deletes a directory specified 
+- `touch [name]`: creates a file under the specified name
+- `rm [name]`: deletes the file registered under that name

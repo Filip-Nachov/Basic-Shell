@@ -1,3 +1,26 @@
+'''
+MIT License
+
+Copyright (c) 2024 Filip Nachov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.'''
+
 import os
 import subprocess
 
@@ -34,6 +57,16 @@ class Shell_commands:
     def rmdir_cmd(self, name):
         os.rmdir(name)
 
+    def touch_cmd(self, name):
+        open(name, "w")
+
+    def rm_cmd(self, name):
+        try:
+            os.remove(name)
+            print(f"File '{name}' deleted successfully.")
+        except OSError as e:
+            print(f"Error: {e}")
+
     def help_cmd(self):
         print("exit: exits the shell")
         print("pwd: shows your current path")
@@ -42,6 +75,8 @@ class Shell_commands:
         print("echo or print <word/sentence>: prints out the word or sentences said")
         print("mkdir <name>: creates a directory with that name")
         print("rmdir <name>: deletes the directory registered under that name")
+        print("touch <name>: make a file with that name") 
+        print("rm <name>: delets the file under that name")
 
 # the shell  working system
 class Shell:
@@ -58,7 +93,8 @@ class Shell:
         self.commands["help"] = shell_commands.help_cmd # help command
         self.commands["mkdir"] = shell_commands.mkdir_cmd # mkdir command
         self.commands["rmdir"] = shell_commands.rmdir_cmd # rmdir command
-
+        self.commands["touch"] = shell_commands.touch_cmd # touch command
+        self.commands["rm"] = shell_commands.rm_cmd # rm command
     def run(self):
         print('For all available commands type "help"')
         while True: # making a while loop for the input
@@ -100,7 +136,15 @@ class Shell:
                     self.commands["rmdir"](self, name) 
                 except FileNotFoundError:
                     print("That directory does not exist")
-                    
+            elif inputing.startswith("touch"):
+                loi = inputing.split()[1:]
+                name = loi[0]
+                self.commands["touch"](self, name)
+            elif inputing.startswith("rm"):
+                loi = inputing.split()[1:]
+                name = loi[0]
+                self.commands["rm"](self, name)
+
 if __name__ == "__main__": # running the shell 
     shell = Shell()
     shell.run()
