@@ -28,3 +28,6 @@ to install with the zip method you have to go to the repository and click on the
 The usage process is the same no matter how you install it.<br>
 To use it you can either open the shell.py file with Python or do it from the terminal by opening the Basic-Shell folder and running the command 
 `python shell.py` and if that doesn't work run the command `python3 shell.py` (Just remember you have to install python for this)
+
+## License
+The license for this project is a MIT [License](LICENSE)
